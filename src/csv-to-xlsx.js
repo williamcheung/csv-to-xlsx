@@ -51,7 +51,7 @@ if (module.parent) {
   const outputFormat = program.outputFormat;
   const outputPath = path.join(path.dirname(csvPath), `${fileObject.name}.${outputFormat}`);
   if (fs.existsSync(outputPath)) {
-    console.warn(`Deleting existing output file: ${outputPath}`);
+    console.info(`Deleting existing output file: ${outputPath}`);
     fs.unlinkSync(outputPath);
   }
 
@@ -61,6 +61,7 @@ if (module.parent) {
     convertCsvToXlsx(csvPath, outputPath);
     console.info(`Created: ${outputPath}`);
   } catch (e) {
-    console.info(`${e.toString()}`);
+    console.error(`${e.toString()}`);
+    process.exitCode = 2;
   }
 }
